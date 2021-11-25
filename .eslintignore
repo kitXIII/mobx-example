@@ -1,0 +1,7 @@
+/src/submodules/
+/coverage
+/build
+/config
+/scripts
+babel.config.js
+lint-staged.config.js

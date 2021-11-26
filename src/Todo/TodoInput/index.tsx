@@ -1,23 +1,24 @@
-import { VFC, useState, ChangeEvent, FormEvent } from 'react';
+import { VFC, FormEvent } from 'react';
 import TodoStore from '../../stores/TodoStore';
 import styles from './TodoInput.module.css';
 
 const TodoIndex: VFC<{ todos: TodoStore }> = ({ todos }) => {
-    const [newTodo, setNewTodo] = useState('');
-
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setNewTodo(e.target.value);
-    };
-
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        todos.add(newTodo);
-        setNewTodo('');
+
+        const formEl = e.target as HTMLFormElement;
+        const formData = new FormData(formEl);
+        const value = String(formData.get('todo-input') || '');
+
+        todos.add(value);
+        formEl.reset();
     };
+
+    console.log('render');
 
     return (
         <form onSubmit={handleSubmit} className={styles['todo-input-group']}>
-            <input value={newTodo} onChange={handleChange} />
+            <input name='todo-input' placeholder='Add todo...' />
             <button type='submit'>Add todo</button>
         </form>
     );

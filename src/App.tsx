@@ -1,7 +1,15 @@
-import React from "react";
+import React from 'react';
+import TodoStore from './stores/TodoStore';
+import TodoInput from './Todo/TodoInput';
+import TodoList from './Todo/TodoList';
 
-function App() {
-  return <div className="App"></div>;
-}
+const todos = new TodoStore();
+
+const App = () => {
+    return <div className='app'>
+        <TodoInput todos={todos} />
+        <TodoList todos={todos} />
+    </div>;
+};
 
 export default App;

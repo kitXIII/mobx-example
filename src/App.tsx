@@ -2,18 +2,14 @@ import TodoInput from './Todo/TodoInput';
 import TodoList from './Todo/TodoList';
 import styles from './App.module.css';
 import { observer, useLocalObservable } from 'mobx-react-lite';
+import { useStore } from './stores';
 
 const App = () => {
+    const { todos } = useStore();
     const appUI = useLocalObservable(() => ({
         todosVisible: true,
-        loading: false,
-        *toggleTodosVisibility() {
-            this.loading = true;
-
-            yield new Promise((resolve) => setTimeout(() => resolve(0), 1000));
-
+        toggleTodosVisibility() {
             this.todosVisible = !this.todosVisible;
-            this.loading = false;
         },
     }));
 
@@ -24,7 +20,7 @@ const App = () => {
                 {/* @ts-ignore */}
                 <h2 onClick={appUI.toggleTodosVisibility}>
                     <span>{appUI.todosVisible ? '-' : '+'}</span>
-                    Todos
+                    Todos (unfinished: {todos.unfinishedTodos.length})
                 </h2>
                 {appUI.todosVisible ? <TodoList /> : null}
             </div>

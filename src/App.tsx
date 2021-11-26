@@ -7,7 +7,7 @@ const App = () => {
     const appUI = useLocalObservable(() => ({
         todosVisible: true,
         toggleTodosVisibility() {
-            this.todosVisible = !this.todosVisible;
+            appUI.todosVisible = !appUI.todosVisible;
         },
     }));
 
@@ -15,7 +15,8 @@ const App = () => {
         <div className='app'>
             <TodoInput />
             <div className={styles['todo-list-wrapper']}>
-                <h2 onClick={() => appUI.toggleTodosVisibility()}>
+                {/* @ts-ignore */}
+                <h2 onClick={appUI.toggleTodosVisibility}>
                     <span>{appUI.todosVisible ? '-' : '+'}</span>
                     Todos
                 </h2>

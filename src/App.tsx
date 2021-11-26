@@ -1,19 +1,15 @@
-import { useState } from 'react';
-import { observable } from 'mobx';
 import TodoInput from './Todo/TodoInput';
 import TodoList from './Todo/TodoList';
 import styles from './App.module.css';
-import { observer } from 'mobx-react-lite';
+import { observer, useLocalObservable } from 'mobx-react-lite';
 
 const App = () => {
-    const [appUI] = useState(() =>
-        observable({
-            todosVisible: true,
-            toggleTodosVisibility() {
-                this.todosVisible = !this.todosVisible;
-            },
-        }),
-    );
+    const appUI = useLocalObservable(() => ({
+        todosVisible: true,
+        toggleTodosVisibility() {
+            this.todosVisible = !this.todosVisible;
+        },
+    }));
 
     return (
         <div className='app'>

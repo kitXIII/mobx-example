@@ -1,9 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import { VFC } from 'react';
-import TodoStore, { Todo } from '../../stores/TodoStore';
+import { useStore } from '../../stores';
+import { Todo } from '../../stores/TodoStore';
 import styles from './TodoList.module.css';
 
-const TodoList: VFC<{ todos: TodoStore }> = ({ todos }) => {
+const TodoList: VFC = () => {
+    const { todos } = useStore();
+
     const handleToggleTodo = (t: Todo) => () => {
         todos.toggle(t);
     };

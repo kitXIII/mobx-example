@@ -1,8 +1,10 @@
 import { VFC, FormEvent } from 'react';
-import TodoStore from '../../stores/TodoStore';
+import { useStore } from '../../stores';
 import styles from './TodoInput.module.css';
 
-const TodoIndex: VFC<{ todos: TodoStore }> = ({ todos }) => {
+const TodoIndex: VFC = () => {
+    const { todos } = useStore();
+
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
@@ -13,8 +15,6 @@ const TodoIndex: VFC<{ todos: TodoStore }> = ({ todos }) => {
         todos.add(value);
         formEl.reset();
     };
-
-    console.log('render');
 
     return (
         <form onSubmit={handleSubmit} className={styles['todo-input-group']}>
